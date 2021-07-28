@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d77bb56f-e6cb-41d9-9a6a-aa54e3750561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/web/accounts/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/templates/base/favicons.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/templates/base/navbar.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/templates/snippets/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/templates/web/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/templates/web/forms.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/czechitas_data_games/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/czechitas_data_games/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/czechitas_data_games/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/czechitas_data_games/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1vnzbrk2BnaKVhXLteXGj9i2lOY" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/venv/bin/python3.9" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/web" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d77bb56f-e6cb-41d9-9a6a-aa54e3750561" name="Default Changelist" comment="" />
+      <created>1627212715411</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1627212715411</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
