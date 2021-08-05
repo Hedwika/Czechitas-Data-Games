@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d77bb56f-e6cb-41d9-9a6a-aa54e3750561" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/web/accounts/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/templates/base/favicons.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/templates/base/navbar.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/templates/snippets/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/templates/web/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/templates/web/forms.html" afterDir="false" />
+    <list default="true" id="d77bb56f-e6cb-41d9-9a6a-aa54e3750561" name="Default Changelist" comment="Login form">
+      <change afterPath="$PROJECT_DIR$/web/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/templates/web/assignment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/czechitas_data_games/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/czechitas_data_games/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/czechitas_data_games/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/czechitas_data_games/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/accounts/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/snippets/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/snippets/form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/web/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/web/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +28,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1vnzbrk2BnaKVhXLteXGj9i2lOY" />
   <component name="ProjectLevelVcsManager">
@@ -54,6 +61,14 @@
       <option name="presentableId" value="Default" />
       <updated>1627212715411</updated>
     </task>
+    <task id="LOCAL-00001" summary="Login form">
+      <created>1627246115222</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1627246115223</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -66,5 +81,10 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Login form" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login form" />
   </component>
 </project>
