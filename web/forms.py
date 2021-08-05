@@ -4,7 +4,7 @@ from web.models import Assignment
 
 
 class RightAnswer(forms.Form):
-    answer = forms.CharField(max_length=200)
+    answer = forms.CharField(max_length=200, label="Tvoje odpověď")
 
     def __init__(self, *args, **kwargs):
         self.right_answer = kwargs.pop("right_answer")
