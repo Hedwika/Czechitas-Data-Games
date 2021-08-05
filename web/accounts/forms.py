@@ -6,8 +6,12 @@ from django import forms
 User = get_user_model()
 
 class RegisterForm(forms.Form):
-    username = forms.CharField()
-    email = forms.EmailField()
+    username = forms.CharField(
+        label='Uživatelské jméno',
+    )
+    email = forms.EmailField(
+        label='E-mailová adresa',
+    )
     password1 = forms.CharField(
         label='Heslo',
         widget=forms.PasswordInput(
@@ -67,3 +71,4 @@ class LoginForm(forms.Form):
         if not qs.exists():
             raise forms.ValidationError("Neplatný uživatel.")
         return username
+
