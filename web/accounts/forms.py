@@ -67,7 +67,9 @@ class LoginForm(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
-        qs = User.objects.filter(username_iexact=username) #UzivatelskeJmeno == uzivatelskejmeno
+        qs = User.objects.filter(username=username)
+        # TODO: return to the row after migration to PostgreSQL
+        #qs = User.objects.filter(username_iexact=username) #UzivatelskeJmeno == uzivatelskejmeno
         if not qs.exists():
             raise forms.ValidationError("Neplatný uživatel.")
         return username

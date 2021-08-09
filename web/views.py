@@ -1,18 +1,10 @@
-import mimetypes
 import os
-from pyexpat import model
-import form as form
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.template.context_processors import request
 from django.views.generic import ListView, DetailView
-from self import self
 
 from czechitas_data_games import settings
 from web import models
-from django import forms
-from django.forms import ModelForm
 
 from web.forms import RightAnswer
 from web.models import NewUser, Assignment
