@@ -1,11 +1,14 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import render, redirect
 from django.template import RequestContext
+from django.core.mail import EmailMessage
+from django.contrib import messages
+from django_email_verification import send_email
+from django.views.decorators.csrf import csrf_exempt
 
-from .forms import LoginForm, RegisterForm, User
+from .forms import LoginForm, RegisterForm
 
-User = get_user_model()
-
+@csrf_exempt
 def register_view(request, password=None):
     form = RegisterForm(request.POST or None)
     if form.is_valid():
@@ -14,16 +17,19 @@ def register_view(request, password=None):
         password1 = form.cleaned_data.get("password1")
         password2 = form.cleaned_data.get("password2")
 
-        try:
-            user = User.objects.create_user(username, email, password)
-        except:
-            user = None
+        # try:
+        user = get_user_model().objects.create(username=username, email=email, password=password1)
+        user.is_active = False
+        send_email(user)
+        return render(request, 'confirm_template.html')
+        # except:
+        #     user = None
 
         if user != None:
-            login(request, user)
             return redirect("/")
         else:
             request.session['register_error'] = 1 # 1 == True
+
     return render(request, "forms.html", {"form": form})
 
 def login_view(request):
