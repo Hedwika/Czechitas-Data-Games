@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Seznam všech událostí</h2>
+
+<table>
+  <tr>
+    <th>Název</th>
+    <th>Začátek</th>
+    <th>Konec</th>
+    <th>Popis</th>
+  </tr>
+
+  {% for object in object_list %}
+
+  <tr>
+    <td> {{ object.title }} </td>
+    <td>{{ object.start }} </td>
+    <td>{{ object.end }}</td>
+    <td>{{ object.description }}</td>
+  </tr>
+
+  {% endfor %}
+</table>
+
+{% endblock %}
