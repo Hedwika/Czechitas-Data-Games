@@ -2,19 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d77bb56f-e6cb-41d9-9a6a-aa54e3750561" name="Default Changelist" comment="Login form">
-      <change afterPath="$PROJECT_DIR$/web/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/templates/web/assignment.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/templates/confirm_template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/templates/mail_body.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Czechitas-Data-Games.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Czechitas-Data-Games.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/czechitas_data_games/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/czechitas_data_games/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/czechitas_data_games/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/czechitas_data_games/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/accounts/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/accounts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/snippets/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/snippets/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/web/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/web/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/accounts/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +23,11 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="Czechitas-Data-Games/invalid/Django" />
+    </ignored-facets>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="1" />
