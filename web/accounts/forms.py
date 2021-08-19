@@ -8,9 +8,19 @@ User = get_user_model()
 class RegisterForm(forms.Form):
     username = forms.CharField(
         label='Uživatelské jméno',
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+            }
+        )
     )
     email = forms.EmailField(
         label='E-mailová adresa',
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+            }
+        )
     )
     password1 = forms.CharField(
         label='Heslo',
@@ -55,7 +65,7 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError("Hesla se neshodují, zkuste to prosím znovu.")
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
+    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
