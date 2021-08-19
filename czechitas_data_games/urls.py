@@ -16,6 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from czechitas_data_games import settings
+from django.conf import settings
+from django.conf.urls.static import static
+from django.conf.urls import url
+from django.views.static import serve
+from web import views
+
 from web.accounts.views import login_view, logout_view, register_view
 
 urlpatterns = [
