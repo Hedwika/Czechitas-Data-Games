@@ -18,15 +18,16 @@ def register_view(request, password=None):
         password2 = form.cleaned_data.get("password2")
 
         # try:
-        user = get_user_model().objects.create(username=username, email=email, password=password1)
+        # user = Users.objects.create_user(username=username, email=email, password=password1)
+        user = get_user_model().objects.create_user(username=username, email=email, password=password1)
         user.is_active = False
         send_email(user)
-        return render(request, 'confirm_template.html')
+        # return render(request, 'confirm_template.html')
         # except:
         #     user = None
 
         if user != None:
-            return redirect("/")
+            return redirect("/login")
         else:
             request.session['register_error'] = 1 # 1 == True
 
@@ -34,11 +35,13 @@ def register_view(request, password=None):
 
 def login_view(request):
     form = LoginForm(request.POST or None)
+    error = ""
     if form.is_valid():
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
         # print(password)
         user = authenticate(request, username=username, password=password)
+        print(user)
         if user != None:
             # user is valid and active -> is_active
             # request.user == user
@@ -49,7 +52,8 @@ def login_view(request):
             # request.session['attempt'] = attempt + 1
             # return redirect("/invalid-password")
             request.session['invalid_user'] = 1 # 1 == True
-    return render(request, "forms.html", {"form": form})
+            error = "Nepoznali jsme vás: Vaše údaje nejsou správné, nebo váš účet není ověřen. Klikněte prosím na odkaz v e-mailu, pokud vám nepřišel, zkontrolujte Spambox."
+    return render(request, "forms.html", {"form": form, "error": error})
 
 def logout_view(request):
     logout(request)

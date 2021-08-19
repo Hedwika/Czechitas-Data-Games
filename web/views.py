@@ -7,7 +7,7 @@ from czechitas_data_games import settings
 from web import models
 
 from web.forms import RightAnswer
-from web.models import NewUser, Assignment
+from web.models import NewUser, Assignment, Event
 
 
 # @login_required
@@ -26,7 +26,7 @@ class AssignmentView(DetailView):
             user = NewUser.objects.filter(user=self.request.user).first()
             user.todo_assignment += 1
             user.save()
-            if user.todo_assignment == 10:
+            if user.todo_assignment > 10:
                 return HttpResponseRedirect("/congrats")
             else:
                 return HttpResponseRedirect("/assignment")
