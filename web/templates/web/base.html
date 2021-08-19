@@ -14,9 +14,9 @@
     <link rel='stylesheet' href="{% static 'css/main.css'  %}"/>
     {% block head %}{% endblock %}
   </head>
-  <body class='bg-dark text-white'>
+  <body>
+      {% include 'base/navbar.html' %}
       <div class='container '>
-          {% include 'base/navbar.html' %}
 
         {% block content %}
         <h1>Hello world</h1>
