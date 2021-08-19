@@ -9,6 +9,14 @@ from web import models
 from web.forms import RightAnswer
 from web.models import NewUser, Assignment, Event
 
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
+from . import models
+
+class TitlePageView(ListView):
+  model = models.Event
+  template_name = "web/title_page.html"
 
 # @login_required
 class AssignmentView(DetailView):

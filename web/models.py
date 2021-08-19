@@ -11,6 +11,7 @@ from web.accounts import forms
 User = get_user_model()
 
 class Event(models.Model):
+    title = models.CharField(max_length=50, null=True)
     start = models.DateTimeField()
     end = models.DateTimeField()
     description = models.CharField(max_length=1000)
