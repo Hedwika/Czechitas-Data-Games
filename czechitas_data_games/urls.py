@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from czechitas_data_games import settings
 from django.conf import settings
@@ -22,7 +22,10 @@ from django.conf.urls.static import static
 from django.conf.urls import url
 from django.views.static import serve
 from web import views
+
 from web.accounts.views import login_view, logout_view, register_view
+from django.urls import path
+from web import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,8 +34,5 @@ urlpatterns = [
     path('register/', register_view, name='registration'),
     path('assignment/', views.AssignmentView.as_view(), name='assignment'),
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
+    path('', views.TitlePageView.as_view(), name='title_page'),
 ]
-
-if settings.DEBUG:
-    urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
-    urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

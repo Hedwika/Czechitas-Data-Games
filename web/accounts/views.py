@@ -15,7 +15,7 @@ def register_view(request, password=None):
         password2 = form.cleaned_data.get("password2")
 
         try:
-            user = User.objects.create_user(username, email, password)
+            user = User.objects.create_user(username, email, password1)
         except:
             user = None
 
