@@ -1,0 +1,5 @@
+{% if success %}
+Děkujeme, tvůj účet je ověřen.
+{% else %}
+Ověření tvého účtu se nezdařilo.
+{% endif %}

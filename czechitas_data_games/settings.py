@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
+    'django_email_verification',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,28 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media_cdn')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# EMAIL VERIFICATION
+def verified_callback(user):
+    user.is_active = True
+
+EMAIL_VERIFIED_CALLBACK = verified_callback
+
+# EMAIL VERIFICATION
+EMAIL_ACTIVE_FIELD = 'is_active'
+EMAIL_SERVER = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_ADDRESS = ''
+EMAIL_FROM_ADDRESS = ''
+EMAIL_PASSWORD = ''
+EMAIL_MAIL_SUBJECT = 'Czechitas Data Games: Potvrzení e-mailu'
+EMAIL_MAIL_HTML = 'mail_body.html'
+EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+EMAIL_MAIL_PLAIN = 'confirm_template.txt'
+EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+EMAIL_TOKEN_LIFE = 60 * 60
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
