@@ -10,6 +10,7 @@
     <th>Začátek</th>
     <th>Konec</th>
     <th>Popis</th>
+    <th>Odkaz</th>
   </tr>
 
   {% for object in object_list %}
@@ -19,6 +20,8 @@
     <td>{{ object.start|date}}, {{object.start|time}} </td>
     <td>{{ object.end }}</td>
     <td>{{ object.description }}</td>
+    <td> {% if object.is_currently_running%}
+      <a style="color: #2d2e83" href="{% url 'assignment' %}">První úkol</a> {% endif%}</td>
   </tr>
 
   {% endfor %}
