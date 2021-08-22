@@ -35,6 +35,6 @@ urlpatterns = [
     path('register/', register_view, name='registration'),
     path('assignment/', views.AssignmentView.as_view(), name='assignment'),
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
-    path('email/', include(mail_urls)) ,
+    path('email/', include(mail_urls)),
     path('', views.TitlePageView.as_view(), name='title_page'),
 ]

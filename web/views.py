@@ -2,21 +2,24 @@ import os
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.decorators import login_required
 
 from czechitas_data_games import settings
-from web import models
 
+from web import models
 from web.forms import RightAnswer
 from web.models import NewUser, Assignment, Event
 
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
-from . import models
+import datetime
+
 
 class TitlePageView(ListView):
   model = models.Event
   template_name = "web/title_page.html"
+
+  def get_queryset(self):
+      query_set = models.Event.objects.filter(end__gt=datetime.datetime.now())
+      return query_set
 
 # @login_required
 class AssignmentView(DetailView):
