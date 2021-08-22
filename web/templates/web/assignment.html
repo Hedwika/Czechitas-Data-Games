@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h1>Úkol číslo<span class="badge bg-secondary"> {{assignment.order}}</span></h1>
-<h2>Zadání:</h2>
+<style> label{font-weight:bold;color: #2d2e83} </style>
+<h2 style="text-decoration: underline"> Úkol číslo <span style="font-weight:bold;font-size:100%">{{assignment.order}}</span></h2>
+<h4>Zadání:</h4>
 <p>{{ assignment.description }}</p>
-<p><a href="/media/{{ assignment.data }}" download>Přílohy ke stažení</a></p>
-<h2>Správná odpověď:</h2>
+<p><a class="btn btn-primary" href="/media/{{ assignment.data }}" download>Přílohy ke stažení</a></p>
+<h4>Správná odpověď:</h4>
 <p><i>Zadej číslo ve formátu dvou desetinných míst s tečkou a bez mezer mezi tisíci. Například "1234567.89". Varianty jako "1234567,89" nebo "1 234 567.89" budou vyhodnoceny jako chybná odpověď.</i></p>
 <p>{{ RightAnswer.answer }}</p>
 

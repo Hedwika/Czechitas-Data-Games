@@ -1,12 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django import forms
 from sqlparse.tokens import Assignment
-
 from web.accounts import forms
+import datetime
 
 User = get_user_model()
 
@@ -15,6 +14,13 @@ class Event(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
     description = models.CharField(max_length=1000)
+
+    @property
+    def is_currently_running(self):
+        if self.start <= datetime.datetime.now() and self.end >= datetime.datetime.now():
+            return True
+        else:
+            return False
 
 class Assignment(models.Model):
     description = models.CharField(max_length=1000)
