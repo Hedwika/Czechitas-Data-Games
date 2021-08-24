@@ -27,7 +27,7 @@ def register_view(request, password=None):
         #     user = None
 
         if user != None:
-            return redirect("/login")
+            return redirect("/prihlaseni")
         else:
             request.session['register_error'] = 1 # 1 == True
 
@@ -57,5 +57,4 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    # request.user == anon user
-    return redirect("/login")
+    return render(request, "logout.html")

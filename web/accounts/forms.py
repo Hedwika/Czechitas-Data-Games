@@ -65,8 +65,16 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError("Hesla se neshodují, zkuste to prosím znovu.")
 
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    username = forms.CharField(
+        label='Uživatelské jméno',
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control"
+            }
+        )
+    )
     password = forms.CharField(
+        label='Heslo',
         widget=forms.PasswordInput(
             attrs={
                 "class": "form-control",

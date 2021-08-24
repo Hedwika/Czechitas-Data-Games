@@ -6,25 +6,33 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-          {% if not request.user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/register">Registerace</a>
+          {% if not request.user.is_authenticated %}
+
+          <li class="nav-item">
+              <a class="nav-link" href="/">Události a úkoly<span class="sr-only">(current)</span></a>
           </li>
+
+          <li class="nav-item">
+              <a class="nav-link" href="/registrace">Registrace</a>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link" href="/prihlaseni">Přihlášení</a>
+          </li>
+
           {% else %}
+
           <li class="nav-item">
-            <a class="nav-link" href="/orders">Orders</a>
+              <a class="nav-link" href="/">Události a úkoly<span class="sr-only">(current)</span></a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
+              <a class="nav-link" href="/odhlaseni">Odhlášení</a>
           </li>
+
           {% endif %}
+
       </ul>
     </div>
   </nav>
