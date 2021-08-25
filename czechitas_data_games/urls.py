@@ -30,10 +30,11 @@ from web import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
-    path('register/', register_view, name='registration'),
-    path('assignment/', views.AssignmentView.as_view(), name='assignment'),
+    path('prihlaseni/', login_view, name='prihlaseni'),
+    path('odhlaseni/', logout_view, name='odhlaseni'),
+    path('registrace/', register_view, name='registrace'),
+    path('ukoly/', views.AssignmentView.as_view(), name='ukoly'),
+    path('gratulujeme/', views.CongratsView.as_view(), name='gratulujeme'),
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
     path('email/', include(mail_urls)),
     path('', views.TitlePageView.as_view(), name='title_page'),

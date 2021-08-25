@@ -2,15 +2,17 @@
 
 {% block content %}
 <style> label{font-weight:bold;color: #2d2e83} </style>
-<h2 style="text-decoration: underline"> Úkol číslo <span style="font-weight:bold;font-size:100%">{{assignment.order}}</span></h2>
-<h4>Zadání:</h4>
-<p>{{ assignment.description }}</p>
-<p><a class="btn btn-primary" href="/media/{{ assignment.data }}" download>Přílohy ke stažení</a></p>
-<h4>Správná odpověď:</h4>
-<p><i>Zadej číslo ve formátu dvou desetinných míst s tečkou a bez mezer mezi tisíci. Například "1234567.89". Varianty jako "1234567,89" nebo "1 234 567.89" budou vyhodnoceny jako chybná odpověď.</i></p>
+<center><h2>Úkol číslo {{assignment.order}}</span></h2></center>
+<h4>Zadání</h4>
+<p>{{ assignment.description |linebreaks}}</p>
+<p><a href="/media/{{ assignment.data }}" download>Soubory ke stažení</a></p><br>
+<h4>Řešení</h4>
+
 <p>{{ RightAnswer.answer }}</p>
 
 <form method='POST' action="." enctype="multipart/form-data">{% csrf_token %} {{form.as_p}}
+    <small class="form-text text-muted">Zadej číslo ve formátu dvou desetinných míst s tečkou a bez mezer mezi tisíci. Například "1234567.89". Varianty jako "1234567,89" nebo "1 234 567.89" budou vyhodnoceny jako chybná odpověď.</small>
+    <br>
     <button type='submit' class='btn btn-primary'>{% if submit_btn %} {{ submit_btn }} {% else %}Odeslat {% endif %}</button>
 </form>
 

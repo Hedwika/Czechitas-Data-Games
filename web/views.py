@@ -1,4 +1,6 @@
 import os
+from urllib import request
+
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
@@ -37,10 +39,10 @@ class AssignmentView(DetailView):
             user = NewUser.objects.filter(user=self.request.user).first()
             user.todo_assignment += 1
             user.save()
-            if user.todo_assignment > 10:
-                return HttpResponseRedirect("/congrats")
+            if user.todo_assignment > 2:
+                return HttpResponseRedirect("/gratulujeme")
             else:
-                return HttpResponseRedirect("/assignment")
+                return HttpResponseRedirect("/ukoly")
 
         return render(request, "forms.html", {"form": form})
 
@@ -58,3 +60,13 @@ class AssignmentView(DetailView):
                 return response
 
         raise Http404
+
+class CongratsView(ListView):
+    template_name = 'congrats.html'
+
+    def get_queryset(self):
+        query_set = models.Event.objects.filter()
+        return query_set
+
+    def congrats(request):
+        return render(request, "congrats.html")
