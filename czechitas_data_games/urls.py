@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import path, include
 
 from czechitas_data_games import settings
@@ -31,11 +32,11 @@ from web import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('prihlaseni/', login_view, name='prihlaseni'),
-    path('odhlaseni/', logout_view, name='odhlaseni'),
+    path('odhlaseni/', login_required(logout_view), name='odhlaseni'),
     path('registrace/', register_view, name='registrace'),
-    path('ukoly/', views.AssignmentView.as_view(), name='ukoly'),
-    path('gratulujeme/', views.CongratsView.as_view(), name='gratulujeme'),
+    path('ukoly/', login_required(views.AssignmentView.as_view()), name='ukoly'),
+    path('gratulujeme/', login_required(views.CongratsView.as_view()), name='gratulujeme'),
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
     path('email/', include(mail_urls)),
     path('', views.TitlePageView.as_view(), name='title_page'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

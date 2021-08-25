@@ -23,7 +23,6 @@ class TitlePageView(ListView):
       query_set = models.Event.objects.filter(end__gt=datetime.datetime.now())
       return query_set
 
-# @login_required
 class AssignmentView(DetailView):
     model = models.Assignment
     template_name = "assignment.html"
@@ -39,7 +38,9 @@ class AssignmentView(DetailView):
             user = NewUser.objects.filter(user=self.request.user).first()
             user.todo_assignment += 1
             user.save()
-            if user.todo_assignment > 2:
+            event_assignments = Assignment.objects.filter(event__title='Czechitas Data Games I.')
+            number_of_tasks = len(event_assignments)
+            if user.todo_assignment > number_of_tasks:
                 return HttpResponseRedirect("/gratulujeme")
             else:
                 return HttpResponseRedirect("/ukoly")
