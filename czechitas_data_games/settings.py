@@ -162,7 +162,7 @@ EMAIL_MAIL_SUBJECT = 'Czechitas Data Games: Potvrzení e-mailu'
 EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
 EMAIL_MAIL_PLAIN = 'confirm_template.txt'
-EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+EMAIL_PAGE_DOMAIN = os.environ['EMAIL_PAGE_DOMAIN']
 EMAIL_TOKEN_LIFE = 60 * 60
 
 EMAIL_HOST = 'smtp.gmail.com'
