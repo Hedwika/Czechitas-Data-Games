@@ -56,13 +56,14 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError("Tento e-mail už se používá, vyberte si prosím jiný.")
         return email
 
-    def clean_password1(self):
+    def clean(self):
         cleaned_data = super(RegisterForm, self).clean()
         password = cleaned_data.get("password1")
         confirm_password = cleaned_data.get("password2")
 
         if password != confirm_password:
             raise forms.ValidationError("Hesla se neshodují, zkuste to prosím znovu.")
+        return self.cleaned_data
 
 class LoginForm(forms.Form):
     username = forms.CharField(
