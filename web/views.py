@@ -31,6 +31,16 @@ class AssignmentView(DetailView):
         user = NewUser.objects.filter(user=self.request.user).first()
         return models.Assignment.objects.filter(id=user.todo_assignment).first()
 
+    # def get(self, request, *args, **kwargs):
+    #     event_assignments = Assignment.objects.filter(event__title='Czechitas Data Games I.')
+    #     number_of_tasks = len(event_assignments)
+    #     user = NewUser.objects.filter(user=self.request.user).first()
+    #
+    #     if user.todo_assignment > number_of_tasks:
+    #         return HttpResponseRedirect("/gratulujeme")
+    #     else:
+    #         return super(AssignmentView, self).get()
+
     def post(self, request, *args, **kwargs):
         form = RightAnswer(request.POST or None, right_answer=self.get_object().right_answer)
         answer = self.get_object().right_answer
@@ -38,7 +48,7 @@ class AssignmentView(DetailView):
             user = NewUser.objects.filter(user=self.request.user).first()
             user.todo_assignment += 1
             user.save()
-            event_assignments = Assignment.objects.filter(event__title='Czechitas Data Games I.')
+            event_assignments = Assignment.objects.filter(event__title='Data Games I.')
             number_of_tasks = len(event_assignments)
             if user.todo_assignment > number_of_tasks:
                 return HttpResponseRedirect("/gratulujeme")
