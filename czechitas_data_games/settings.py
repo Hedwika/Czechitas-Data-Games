@@ -155,19 +155,19 @@ EMAIL_ACTIVE_FIELD = 'is_active'
 EMAIL_SERVER = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_ADDRESS = ''
-EMAIL_FROM_ADDRESS = ''
-EMAIL_PASSWORD = ''
+EMAIL_ADDRESS = os.environ['EMAIL_ADDRESS']
+EMAIL_FROM_ADDRESS = os.environ['EMAIL_FROM_ADDRESS']
+EMAIL_PASSWORD = os.environ['EMAIL_PASSWORD']
 EMAIL_MAIL_SUBJECT = 'Czechitas Data Games: Potvrzení e-mailu'
 EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
 EMAIL_MAIL_PLAIN = 'confirm_template.txt'
-EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+EMAIL_PAGE_DOMAIN = os.environ['EMAIL_PAGE_DOMAIN']
 EMAIL_TOKEN_LIFE = 60 * 60
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 
 django_heroku.settings(locals())
 
