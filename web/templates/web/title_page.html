@@ -21,7 +21,7 @@
     <td>{{ object.end }}</td>
     <td>{{ object.description }}</td>
     <td> {% if object.is_currently_running%}
-      <a style="color: #2d2e83" href="{% url 'ukoly' %}">První úkol</a> {% endif%}</td>
+      <a style="color: #2d2e83" href="{% url 'ukoly' object.id %}">První úkol</a> {% endif%}</td>
   </tr>
 
   {% endfor %}
