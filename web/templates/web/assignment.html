@@ -11,7 +11,7 @@
 
 <p>{{ RightAnswer.answer }}</p>
 
-<form method='POST' action="." enctype="multipart/form-data">{% csrf_token %} {{form.as_p}}
+<form method='POST' enctype="multipart/form-data">{% csrf_token %} {{form.as_p}}
     <small class="form-text text-muted">Zadej číslo ve formátu dvou desetinných míst s tečkou a bez mezer mezi tisíci. Například "1234567.89". Varianty jako "1234567,89" nebo "1 234 567.89" budou vyhodnoceny jako chybná odpověď.</small>
     <br>
     <button type='submit' class='btn btn-primary'>{% if submit_btn %} {{ submit_btn }} {% else %}Odeslat {% endif %}</button>

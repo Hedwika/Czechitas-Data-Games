@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django import forms
@@ -22,6 +23,15 @@ class Event(models.Model):
         else:
             return False
 
+class UserProgress(models.Model):
+    event = models.ForeignKey("Event", blank=True, null=True, on_delete=models.CASCADE)
+    new_user = models.ForeignKey("NewUser", blank=True, null=True, on_delete=models.CASCADE)
+    assignment_order = models.IntegerField(default=1)
+
+    def increase_assignment_order(self):
+        self.assignment_order += 1
+        self.save()
+
 class Assignment(models.Model):
     description = models.TextField(max_length=1000)
     data = models.FileField(upload_to='media')
@@ -33,8 +43,29 @@ class NewUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     todo_assignment = models.IntegerField(default=1)
 
+    def get_assignment(self, event_id):
+        user_progress_query = UserProgress.objects.filter(Q(new_user=self) & Q(event_id=event_id))
+        if not user_progress_query.exists():
+            user_progress: UserProgress = UserProgress(new_user=self, event_id=event_id)
+            user_progress.save()
+        else:
+            user_progress: UserProgress = user_progress_query.last()
+        assignment_order = user_progress.assignment_order
+        assignment_queryset = Assignment.objects.filter(Q(event_id=event_id) & Q(order=assignment_order))
+        if assignment_queryset.count() > 0:
+            return assignment_queryset.last()
+        else:
+            return None
+
+    def solve_assignment(self, event_id):
+        user_progress_query = UserProgress.objects.filter(Q(new_user=self) & Q(event_id=event_id))
+        if user_progress_query.count() > 0:
+            user_progress: UserProgress = user_progress_query.last()
+            user_progress.increase_assignment_order()
+
     def __str__(self):
         return str(self.user.username)
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

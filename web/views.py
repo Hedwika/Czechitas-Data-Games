@@ -3,7 +3,7 @@ from urllib import request
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
 from django.contrib.auth.decorators import login_required
 
 from czechitas_data_games import settings
@@ -23,43 +23,41 @@ class TitlePageView(ListView):
       query_set = models.Event.objects.filter(end__gt=datetime.datetime.now())
       return query_set
 
-class AssignmentView(DetailView):
-    model = models.Assignment
+class AssignmentView(FormView):
+    form_class = RightAnswer
     template_name = "assignment.html"
 
-    def get_object(self, queryset=None):
-        user = NewUser.objects.filter(user=self.request.user).first()
-        return models.Assignment.objects.filter(id=user.todo_assignment).first()
+    def get_assignment(self, queryset=None):
+        user: NewUser = NewUser.objects.filter(user=self.request.user).first()
+        assignment = user.get_assignment(self.kwargs['event'])
+        return assignment
 
-    # def get(self, request, *args, **kwargs):
-    #     event_assignments = Assignment.objects.filter(event__title='Czechitas Data Games I.')
-    #     number_of_tasks = len(event_assignments)
-    #     user = NewUser.objects.filter(user=self.request.user).first()
-    #
-    #     if user.todo_assignment > number_of_tasks:
-    #         return HttpResponseRedirect("/gratulujeme")
-    #     else:
-    #         return super(AssignmentView, self).get()
+    def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = self.get_form_class()
+        kwargs = self.get_form_kwargs()
+        kwargs["right_answer"] = self.get_assignment().right_answer
+        return form_class(**kwargs)
+
+    def get(self, request, *args, **kwargs):
+        if not self.get_assignment():
+            return HttpResponseRedirect(f"/gratulujeme/")
+        return super(AssignmentView, self).get(self, request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        form = RightAnswer(request.POST or None, right_answer=self.get_object().right_answer)
-        answer = self.get_object().right_answer
+        form = RightAnswer(request.POST or None, right_answer=self.get_assignment().right_answer)
         if form.is_valid():
-            user = NewUser.objects.filter(user=self.request.user).first()
-            user.todo_assignment += 1
-            user.save()
-            event_assignments = Assignment.objects.filter(event__title='Data Games I.')
-            number_of_tasks = len(event_assignments)
-            if user.todo_assignment > number_of_tasks:
-                return HttpResponseRedirect("/gratulujeme")
+            user: NewUser = NewUser.objects.filter(user=self.request.user).first()
+            user.solve_assignment(self.kwargs['event'])
+            if not self.get_assignment():
+                return HttpResponseRedirect(f"/gratulujeme/")
             else:
-                return HttpResponseRedirect("/ukoly")
-
-        return render(request, "forms.html", {"form": form})
+                return HttpResponseRedirect(f"/ukoly/{self.kwargs['event']}")
+        return render(request, self.template_name, {"form": form, "assignment": self.get_assignment()})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"] = RightAnswer(right_answer=self.get_object().right_answer)
+        context["assignment"] = self.get_assignment()
         return context
 
     def download(request,path):
