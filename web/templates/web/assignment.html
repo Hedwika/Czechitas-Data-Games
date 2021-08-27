@@ -5,7 +5,9 @@
 <style> label{font-weight:bold;color: #2d2e83} </style>
 <center><h2>Úkol číslo {{assignment.order}}</span></h2></center>
 <h4>Zadání</h4>
-<p>{{ assignment.description |linebreaks}}</p>
+    {% autoescape off %}
+        {{ assignment.description |linebreaks}}
+    {% endautoescape %}
 <p><a href="/media/{{ assignment.data }}" download>Soubory ke stažení</a></p><br>
 <h4>Řešení</h4>
 
