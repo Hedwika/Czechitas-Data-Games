@@ -6,7 +6,7 @@
 <center><h2>Úkol číslo {{assignment.order}}</span></h2></center>
 <h4>Zadání</h4>
     {% autoescape off %}
-        {{ assignment.description |linebreaks}}
+        {{ assignment.description }}
     {% endautoescape %}
 <p><a href="/media/{{ assignment.data }}" download>Soubory ke stažení</a></p><br>
 <h4>Řešení</h4>
