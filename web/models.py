@@ -33,7 +33,7 @@ class UserProgress(models.Model):
         self.save()
 
 class Assignment(models.Model):
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=5000)
     data = models.FileField(upload_to='media')
     right_answer = models.CharField(max_length=200)
     order = models.IntegerField()
