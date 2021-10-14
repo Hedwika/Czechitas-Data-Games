@@ -36,6 +36,12 @@ class Assignment(models.Model):
     description = models.TextField(max_length=5000)
     data = models.FileField(upload_to='media')
     right_answer = models.CharField(max_length=200)
+    ANSWER_CHOICES = [
+        ('SEZNAM', 'SEZNAM'),
+        ('ČÍSLO', 'ČÍSLO'),
+        ('TEXT', 'TEXT'),
+    ]
+    answer_type = models.CharField(max_lenght=1, choices=ANSWER_CHOICES, null=True)
     order = models.IntegerField()
     event = models.ForeignKey(Event, blank=True, null=True, on_delete=models.CASCADE)
 
