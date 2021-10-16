@@ -1,4 +1,5 @@
 import math
+from datetime import datetime
 
 from django import forms
 from web import models
@@ -8,6 +9,9 @@ from web.models import Assignment
 class RightAnswer(forms.Form):
     answer = forms.CharField(max_length=200, label="",
                              widget=forms.TextInput(attrs={"class": "form-control"}))
+    if answer_form.is_valid():
+        timestamp = datetime.now()
+        timestamp.save()
 
     # TODO: Move this to a method
     # if Assignment.answer_type == 'SEZNAM':
