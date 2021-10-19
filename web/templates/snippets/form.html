@@ -1,6 +1,8 @@
 <form method='POST' action="." enctype="multipart/form-data">{% csrf_token %}
 
-    {{ error }}
+    <p style = "color: #e6007e">
+        {{ error }}
+    </p>
 
     {{ form.as_p }}
 

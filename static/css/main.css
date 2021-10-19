@@ -56,3 +56,5 @@ background: #939598;
 .container {
     padding-bottom: 80px;
 }
+
+.errorlist {list-style-type: none; color: #e6007e}

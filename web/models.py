@@ -41,7 +41,7 @@ class Assignment(models.Model):
         ('ČÍSLO', 'ČÍSLO'),
         ('TEXT', 'TEXT'),
     ]
-    answer_type = models.CharField(max_lenght=1, choices=ANSWER_CHOICES, null=True)
+    answer_type = models.CharField(max_length=10, choices=ANSWER_CHOICES, null=True)
     order = models.IntegerField()
     event = models.ForeignKey(Event, blank=True, null=True, on_delete=models.CASCADE)
 
