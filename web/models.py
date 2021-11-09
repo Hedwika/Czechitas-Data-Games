@@ -34,7 +34,8 @@ class UserProgress(models.Model):
 
 class Assignment(models.Model):
     description = models.TextField(max_length=5000)
-    data = models.FileField(upload_to='media')
+    # Data are not required because of programming tasks and automated tests
+    data = models.FileField(upload_to='media', null=True, blank=True)
     right_answer = models.CharField(max_length=200)
     ANSWER_CHOICES = [
         ('SEZNAM', 'SEZNAM'),
