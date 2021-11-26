@@ -36,10 +36,10 @@ class RightAnswer(forms.Form):
         if answer != self.right_answer:
 
             if Assignment.answer_type == 'SEZNAM':
-                answer_form = answer.split()
-                answer_form.sort()
+                answer.split()
+                answer.sort()
 
-                if answer.__hash__() != answer_form.__hash__():
+                if self.right_answer.__hash__() != answer.__hash__():
                     raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
 
             elif Assignment.answer_type == 'ČÍSLO':
@@ -48,15 +48,15 @@ class RightAnswer(forms.Form):
                     multiplier = 10 ** decimals
                     return math.floor(n * multiplier + 0.5) / multiplier
 
-                answer_form = round_half_up(answer, 2)
+                answer = round_half_up(answer, 2)
 
-                if answer_form != answer:
+                if self.right_answer != answer:
                     raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
 
             elif Assignment.answer_type == 'TEXT':
-                answer_form = answer.lower()
+                answer.lower()
 
-                if answer_form != answer:
+                if self.right_answer != answer:
                     raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
 
             raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
