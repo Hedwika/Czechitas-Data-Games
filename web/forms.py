@@ -31,6 +31,33 @@ class RightAnswer(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        if cleaned_data["answer"] != self.right_answer:
+        answer = cleaned_data["answer"]
+
+        if answer != self.right_answer:
+
+            if Assignment.answer_type == 'SEZNAM':
+                answer_form = answer.split()
+                answer_form.sort()
+
+                if answer.__hash__() != answer_form.__hash__():
+                    raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
+
+            elif Assignment.answer_type == 'ČÍSLO':
+
+                def round_half_up(n, decimals=0):
+                    multiplier = 10 ** decimals
+                    return math.floor(n * multiplier + 0.5) / multiplier
+
+                answer_form = round_half_up(answer, 2)
+
+                if answer_form != answer:
+                    raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
+
+            elif Assignment.answer_type == 'TEXT':
+                answer_form = answer.lower()
+
+                if answer_form != answer:
+                    raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
+
             raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
         return cleaned_data
