@@ -33,4 +33,6 @@ class RightAnswer(forms.Form):
         cleaned_data = super().clean()
         if cleaned_data["answer"] != self.right_answer:
             raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
+        timestamp = datetime.now()
+        timestamp.save()
         return cleaned_data
