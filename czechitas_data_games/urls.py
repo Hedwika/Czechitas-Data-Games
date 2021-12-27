@@ -34,6 +34,7 @@ urlpatterns = [
     path('prihlaseni/', login_view, name='prihlaseni'),
     path('odhlaseni/', login_required(logout_view), name='odhlaseni'),
     path('registrace/', register_view, name='registrace'),
+    path('wiki/', views.WikiView.as_view(), name='wiki'),
     path('ukoly/<int:event>', login_required(views.AssignmentView.as_view()), name='ukoly'),
     path('gratulujeme/', login_required(views.CongratsView.as_view()), name='gratulujeme'),
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),

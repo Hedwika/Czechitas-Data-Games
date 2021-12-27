@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 style = "margin-top:30px">Seznam všech úkolů</h2>
+
+<table style = "margin-top:25px"
+                   class="table">
+    <tr>
+        <th>Název události</th>
+        <th>Úkol číslo</th>
+        <th>Zadání</th>
+        <th>Soubory ke stažení</th>
+        <th>Správná odpověď</th>
+    </tr>
+
+    {% for object in object_list %}
+
+        {% for assignment in object.assignment_set.all %}
+
+            <tr>
+                <td>{{ object.title }}</td>
+                <td>{{ assignment.order }}</td>
+                <td>{{ assignment.description }}</td>
+                <td><a href="/media/{{ assignment.data }}" download>Podklady k úkolu</a></td>
+                <td>{{ assignment.right_answer }}</td>
+            </tr>
+
+        {% endfor %}
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

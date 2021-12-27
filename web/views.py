@@ -23,6 +23,14 @@ class TitlePageView(ListView):
       query_set = models.Event.objects.filter(end__gt=datetime.datetime.now())
       return query_set
 
+class WikiView(ListView):
+    model = models.Event
+    template_name = "web/wiki.html"
+
+    def get_queryset(self):
+        query_set = models.Event.objects.filter(end__lt=datetime.datetime.now())
+        return query_set
+
 class AssignmentView(FormView):
     form_class = RightAnswer
     template_name = "assignment.html"
