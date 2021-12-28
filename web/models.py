@@ -26,7 +26,7 @@ class Event(models.Model):
 class UserProgress(models.Model):
     event = models.ForeignKey("Event", blank=True, null=True, on_delete=models.CASCADE)
     new_user = models.ForeignKey("NewUser", blank=True, null=True, on_delete=models.CASCADE)
-    assignment_order = models.IntegerField(default=1)
+    assignment = models.ForeignKey("Assignment", blank=True, null=True, on_delete=models.CASCADE)
 
     def increase_assignment_order(self):
         self.assignment_order += 1
