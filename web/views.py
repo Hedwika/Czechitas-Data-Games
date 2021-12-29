@@ -35,8 +35,6 @@ class AssignmentView(FormView):
     form_class = RightAnswer
     template_name = "assignment.html"
 
-    timestamps = []
-
     def get_assignment(self, queryset=None):
         user: NewUser = NewUser.objects.filter(user=self.request.user).first()
         assignment = user.get_assignment(self.kwargs['event'])
@@ -57,8 +55,6 @@ class AssignmentView(FormView):
     def post(self, request, *args, **kwargs):
         form = RightAnswer(request.POST or None, right_answer=self.get_assignment().right_answer)
         if form.is_valid():
-            timestamp = datetime.now()
-            self.timestamps.append(timestamp)
             user: NewUser = NewUser.objects.filter(user=self.request.user).first()
             user.solve_assignment(self.kwargs['event'])
             if not self.get_assignment():
