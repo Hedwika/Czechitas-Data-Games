@@ -44,7 +44,7 @@ class AssignmentView(FormView):
         if form_class is None:
             form_class = self.get_form_class()
         kwargs = self.get_form_kwargs()
-        kwargs["right_answer"] = self.get_assignment().right_answer
+        kwargs["assignment"] = self.get_assignment()
         return form_class(**kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -53,10 +53,10 @@ class AssignmentView(FormView):
         return super(AssignmentView, self).get(self, request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        form = RightAnswer(request.POST or None, right_answer=self.get_assignment().right_answer)
+        form = RightAnswer(request.POST or None, assignment=self.get_assignment())
         if form.is_valid():
             user: NewUser = NewUser.objects.filter(user=self.request.user).first()
-            user.solve_assignment(self.kwargs['event'])
+            user.solve_assignment(self.kwargs['event'], self.get_assignment())
             if not self.get_assignment():
                 return HttpResponseRedirect(f"/gratulujeme/")
             else:
