@@ -7,7 +7,7 @@ from web.models import Assignment
 
 
 class RightAnswer(forms.Form):
-    answer_form = forms.CharField(max_length=200, label="",
+    answer = forms.CharField(max_length=200, label="",
                              widget=forms.TextInput(attrs={"class": "form-control"}))
 
     assignment: models.Assignment
@@ -20,7 +20,7 @@ class RightAnswer(forms.Form):
         cleaned_data = super().clean()
         if self.assignment.answer_type == 'SEZNAM':
             right_answer = list(map(lambda x: x.strip(), self.assignment.right_answer.split(",")))
-            answer = cleaned_data["answer_form"]
+            answer = cleaned_data["answer"]
             if "," not in answer:
                 raise forms.ValidationError("Odpověď musí být seznam a musí obsahovat alespoň dvě "
                                             "hodnoty oddělené čárkou.")
@@ -29,16 +29,16 @@ class RightAnswer(forms.Form):
                 raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
         elif self.assignment.answer_type == 'ČÍSLO':
             right_answer = float(self.assignment.right_answer)
-            answer = cleaned_data["answer_form"]
+            answer = cleaned_data["answer"]
             if "," in answer:
                 raise forms.ValidationError("Je třeba používat desetinnou tečku, nikoli desetinnou čárku.")
             elif not answer.replace('.', '', 1).isdigit():
                 raise forms.ValidationError("Odpověď musí být číslo!")
             else:
-                answer = float(cleaned_data["answer_form"])
+                answer = float(cleaned_data["answer"])
             if round(answer, 2) != round(right_answer, 2):
                 raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
         else:
-            if cleaned_data["answer_form"] != self.assignment.right_answer:
+            if cleaned_data["answer"] != self.assignment.right_answer:
                 raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
         return cleaned_data
