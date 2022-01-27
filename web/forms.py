@@ -3,8 +3,26 @@ from datetime import datetime
 
 from django import forms
 from web import models
-from web.models import Assignment
+from web.models import Assignment, Team
 
+class NewTeam(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ["name"]
+
+    name = forms.CharField(
+        required=False,
+        label='Jméno týmu',
+    )
+
+    def clean_name(self):
+        name = self.cleaned_data.get("name")
+        qs = Team.objects.filter(name__iexact=name, event=models.Event.objects.filter(end__lt=datetime.now()).first())
+        if len(name) <= 1:
+            raise forms.ValidationError("Jméno týmu musí mít více než jeden znak.")
+        if qs.exists():
+            raise forms.ValidationError("Tento tým už existuje, vyberte si prosím jiné jméno týmu.")
+        return name
 
 class RightAnswer(forms.Form):
     answer = forms.CharField(max_length=200, label="",

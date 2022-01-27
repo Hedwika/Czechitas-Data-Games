@@ -23,11 +23,15 @@ class Event(models.Model):
         else:
             return False
 
-class UserProgress(models.Model):
+class TeamProgress(models.Model):
     event = models.ForeignKey("Event", blank=True, null=True, on_delete=models.CASCADE)
-    new_user = models.ForeignKey("NewUser", blank=True, null=True, on_delete=models.CASCADE)
+    team = models.ForeignKey("Team", blank=True, null=True, on_delete=models.CASCADE)
     assignment = models.ForeignKey("Assignment", blank=True, null=True, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
+
+class Team(models.Model):
+    event = models.ForeignKey("Event", blank=True, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, null=True, blank=True)
 
 class Assignment(models.Model):
     description = models.TextField(max_length=5000)
@@ -46,14 +50,15 @@ class Assignment(models.Model):
 class NewUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     todo_assignment = models.IntegerField(default=1)
+    team = models.ForeignKey("Team", blank=True, null=True, on_delete=models.CASCADE)
 
     def get_assignment(self, event_id):
-        user_progress_query = UserProgress.objects.filter(Q(new_user=self) & Q(event_id=event_id)).order_by("timestamp")
+        user_progress_query = TeamProgress.objects.filter(Q(new_user=self) & Q(event_id=event_id)).order_by("timestamp")
         assignment_queryset = Assignment.objects.filter(event_id=event_id).order_by("order")
         if not user_progress_query.exists():
             return assignment_queryset.first()
         else:
-            user_progress: UserProgress = user_progress_query.last()
+            user_progress: TeamProgress = user_progress_query.last()
             current_assignment_order = user_progress.assignment.order + 1
             assignment_queryset = assignment_queryset.filter(order=current_assignment_order)
             if assignment_queryset.count() > 0:
@@ -62,7 +67,7 @@ class NewUser(models.Model):
                 return None
 
     def solve_assignment(self, event_id: int, assignment: Assignment):
-        user_progress = UserProgress(event_id=event_id, new_user=self, assignment=assignment)
+        user_progress = TeamProgress(event_id=event_id, new_user=self, assignment=assignment)
         user_progress.save()
 
     def __str__(self):
