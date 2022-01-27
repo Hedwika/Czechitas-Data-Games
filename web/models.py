@@ -53,7 +53,7 @@ class NewUser(models.Model):
     team = models.ForeignKey("Team", blank=True, null=True, on_delete=models.CASCADE)
 
     def get_assignment(self, event_id):
-        user_progress_query = TeamProgress.objects.filter(Q(new_user=self) & Q(event_id=event_id)).order_by("timestamp")
+        user_progress_query = TeamProgress.objects.filter(Q(team=self.team) & Q(event_id=event_id)).order_by("timestamp")
         assignment_queryset = Assignment.objects.filter(event_id=event_id).order_by("order")
         if not user_progress_query.exists():
             return assignment_queryset.first()
@@ -67,7 +67,7 @@ class NewUser(models.Model):
                 return None
 
     def solve_assignment(self, event_id: int, assignment: Assignment):
-        user_progress = TeamProgress(event_id=event_id, new_user=self, assignment=assignment)
+        user_progress = TeamProgress(event_id=event_id, team=self.team, assignment=assignment)
         user_progress.save()
 
     def __str__(self):
