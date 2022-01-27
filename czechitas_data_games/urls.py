@@ -40,4 +40,5 @@ urlpatterns = [
     url(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
     path('email/', include(mail_urls)),
     path('', views.TitlePageView.as_view(), name='title_page'),
+    path('tymy/', login_required(views.TeamsView.as_view()), name='tymy'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

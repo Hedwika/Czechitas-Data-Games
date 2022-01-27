@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if team_name %}
+
+<h5>Jsi v týmu <b>{{ team_name }}</b>. Pokud se chceš přidat k jinému týmu, klikni na tlačítko "Přidat se k týmu".</h5>
+
+{% endif %}
+
+<h2 style = "margin-top:30px">Seznam týmů</h2>
+
+<table style = "margin-top:25px"
+                   class="table">
+    <tr>
+        <th>Jméno týmu</th>
+        <th></th>
+    </tr>
+
+    {% for object in object_list %}
+
+        <tr>
+            <td>{{ object.name }}</td>
+            <td>
+                <form action="" method="post">
+
+                    {% csrf_token %}
+
+                    <button class="btn btn-primary" name="join_team" value="{{ object.id }}">Přidat se k týmu</button>
+
+                </form>
+            </td>
+        </tr>
+
+    {% endfor %}
+
+</table>
+
+<form action="" method="post">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button class="btn btn-primary" name="new_team">Založit nový tým</button>
+
+</form>
+
+{% endblock %}
