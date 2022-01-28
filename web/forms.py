@@ -5,6 +5,12 @@ from django import forms
 from web import models
 from web.models import Assignment, Team
 
+WRONG_ANSWER_TEXT = "Špatná odpověď, zkus to prosím znovu."
+NOT_A_LIST_TEXT = "Odpověď musí být seznam a musí obsahovat alespoň dvě hodnoty oddělené čárkou."
+COMMA_TEXT = "Je třeba používat desetinnou tečku, nikoli desetinnou čárku."
+NOT_A_NUMBER_TEXT = "Odpověď musí být číslo!"
+NUMBER_ACCURACY = 2
+
 class NewTeam(forms.ModelForm):
     class Meta:
         model = Team
@@ -40,23 +46,22 @@ class RightAnswer(forms.Form):
             right_answer = list(map(lambda x: x.strip(), self.assignment.right_answer.split(",")))
             answer = cleaned_data["answer"]
             if "," not in answer:
-                raise forms.ValidationError("Odpověď musí být seznam a musí obsahovat alespoň dvě "
-                                            "hodnoty oddělené čárkou.")
+                raise forms.ValidationError(NOT_A_LIST_TEXT)
             answer = list(map(lambda x: x.strip(), answer.split(",")))
             if not set(right_answer) == set(answer):
-                raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
+                raise forms.ValidationError(WRONG_ANSWER_TEXT)
         elif self.assignment.answer_type == 'ČÍSLO':
             right_answer = float(self.assignment.right_answer)
             answer = cleaned_data["answer"]
             if "," in answer:
-                raise forms.ValidationError("Je třeba používat desetinnou tečku, nikoli desetinnou čárku.")
+                raise forms.ValidationError(COMMA_TEXT)
             elif not answer.replace('.', '', 1).isdigit():
-                raise forms.ValidationError("Odpověď musí být číslo!")
+                raise forms.ValidationError(NOT_A_NUMBER_TEXT)
             else:
                 answer = float(cleaned_data["answer"])
-            if round(answer, 2) != round(right_answer, 2):
-                raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
+            if round(answer, NUMBER_ACCURACY) != round(right_answer, NUMBER_ACCURACY):
+                raise forms.ValidationError(WRONG_ANSWER_TEXT)
         else:
             if cleaned_data["answer"] != self.assignment.right_answer:
-                raise forms.ValidationError("Špatná odpověď, zkus to prosím znovu.")
+                raise forms.ValidationError(WRONG_ANSWER_TEXT)
         return cleaned_data
