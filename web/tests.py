@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from . import models
+from . import forms, models
 
 
 class LoginAndGameTest(TestCase):
@@ -54,10 +54,20 @@ class LoginAndGameTest(TestCase):
                                         id=1)
         assignment1.save()
 
-        assignment2 = models.Assignment(description="Assignment 1",
+        assignment2 = models.Assignment(description="Assignment 2",
                                         answer_type="TEXT", right_answer="Test right answer", order=2, event=event,
                                         id=2)
         assignment2.save()
+
+        assignment3 = models.Assignment(description="Assignment 3",
+                                        answer_type="SEZNAM", right_answer="alpha,beta,gama", order=3, event=event,
+                                        id=3)
+        assignment3.save()
+
+        assignment4 = models.Assignment(description="Assignment 4",
+                                        answer_type="ČÍSLO", right_answer="3.1415", order=4, event=event,
+                                        id=4)
+        assignment4.save()
 
     @classmethod
     def create_teams(cls, event: models.Event, new_users: Tuple):
@@ -112,11 +122,13 @@ class LoginAndGameTest(TestCase):
         # I am trying a wrong answer so the assigment should stay the same
         response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "Wrong text answer"},
                                     follow=True)
+        self.assertContains(response, forms.WRONG_ANSWER_TEXT)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["assignment"].id, 1)
 
         # I am trying the right answer so the assigment should be the second one
-        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "Test right answer"},
+        # The space in the beginning and end should be stripped
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "   Test right answer   "},
                                     follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["assignment"].id, 2)
@@ -127,5 +139,69 @@ class LoginAndGameTest(TestCase):
                                     follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 2)
+
+        # LIST question type
+        # I am delivering incomplete the answer
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "alpha"},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, forms.NOT_A_LIST_TEXT)
+        self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 2)
+
+        # I am delivering incomplete the answer
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "alpha, beta"},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, forms.WRONG_ANSWER_TEXT)
+        self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 2)
+
+        # I am delivering superfluous content in the answer
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "alpha, beta, gama, delta"},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, forms.WRONG_ANSWER_TEXT)
+        self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 2)
+        
+        # I am delivering the correct elements in a different order, this should be accepted
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "gama, beta, alpha"},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 3)
+
+        # NUMBER question type
+        # I am using a comma instead of a dot
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "3,1415"},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, forms.COMMA_TEXT)
+        self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 3)
+
+        # I am delivering text instead of number
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "abc"},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, forms.NOT_A_NUMBER_TEXT)
+        self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 3)
+
+        # I am delivering incorrect number
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "3.1515"},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, forms.WRONG_ANSWER_TEXT)
+        self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 3)
+
+        # I am delivering incorrect number
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "3.1499"},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, forms.WRONG_ANSWER_TEXT)
+        self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 3)
+
+        # I am delivering correct number, the difference behind second decimal should be accepted
+        response = self.client.post(reverse('ukoly', kwargs={'event': 1}), {"answer": "3.1449"},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(models.TeamProgress.objects.filter(team=self.new_user.team).count(), 4)
+
         self.assertTemplateUsed(response, "congrats.html")
 
